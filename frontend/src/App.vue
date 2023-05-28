@@ -1,48 +1,41 @@
 
 <template>
 
-  {{ count }}
+  <template v-if="showName">Mostrar o nome </template>
 
-  {{ userName }}
+  <div :class="teste">teste</div>
+
+  <img :src="img" alt="foto aleatoria"> 
 
   <ul>
-    <li v-for="user in users">{{ user.firtsName }} - {{ user.age }}</li>
+    <template v-for="(user, info) in users2">
+      <li v-if="user.is_admin === 1">
+        {{ info }} - {{ user.firtsName }}
+      </li>
+      
+    </template>
   </ul>
-
-  <button v-on:click="count++"> add</button>
-
-  <h2>App</h2>
-
-  <router-link to="/">Home</router-link>
-  <router-link to="/about">About</router-link>
-  <router-view></router-view>
 
 </template>
 
 <script setup>
-import { onMounted, onUpdated, reactive, ref } from "vue";
+import {reactive, ref} from "vue";
 
-  const count = ref(0);
-  const userName = ref('Alexandre');
+  const teste = ref('class')
 
-  const users = reactive([
+  const showName = reactive(false)
+
+  const img = ref('https://picsum.photos/200/300')
+  
+  const users2 = ref([{id:1, firtsName:'lael',age:23,is_admin:1},{id:2,firtsName:'Bianca',age:20,is_admin:0}])
+
+  //objeto simples
+  const user = reactive (
     {
-      firtsName:'alexandre',
-      age:40
-    },
-    {
-      firtsName:'Maria',
-      age:40
+      name:'seufredericksen',age:23
     }
-  ])
+  )
 
-onMounted ( () => {
-  console.log('mounted')
-})
-
-onUpdated(() => {
-  console.log('updated')
-})
 
 </script>
 
